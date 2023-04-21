@@ -31,4 +31,22 @@ function operate(operator, num1, num2) {
         throw new Error(`Unknown operator: ${operator}`);
     }
   }
-  
+
+  function appendNumber(number) {
+    let resultElement = document.getElementById('result');
+    if (resultElement.value === '0') {
+      resultElement.value = number;
+    } else {
+      resultElement.value += number;
+    }
+  }
+ 
+// Calculator 
+const buttons = document.querySelectorAll('.button');
+
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+    console.log(`Button ${button.value} is clicked`);
+    appendNumber(button.value);
+  })
+})
