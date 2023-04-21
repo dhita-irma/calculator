@@ -32,21 +32,52 @@ function operate(operator, num1, num2) {
     }
   }
 
-  function appendNumber(number) {
-    let resultElement = document.getElementById('result');
-    if (resultElement.value === '0') {
-      resultElement.value = number;
-    } else {
-      resultElement.value += number;
-    }
+function updateDisplay(number) {
+  let resultElement = document.getElementById('result');
+  if (resultElement.value === '0') {
+    resultElement.value = number;
+  } else {
+    resultElement.value += number;
   }
+}
+
+function handleNumberClick(number) {
+  currentNumber = !currentNumber ? number : currentNumber += number;
+  updateDisplay(number);
+  if (!currentOperator) {
+    currentResult = parseFloat(currentNumber);
+  } else {
+    currentResult = operate(currentOperator, currentResult, parseFloat(currentNumber));
+  }
+}
+
+function handleOperatorClick(operator) {
+  currentOperator = operator;
+  updateDisplay(currentOperator);
+  currentNumber = null;
+  console.log(`Operator ${currentOperator} is clicked`)
+}
  
 // Calculator 
+const operatorButtons = ["+", "-", "*", "/"];
+let currentNumber = null;
+let currentResult = null;
+let currentOperator = null; 
+
 const buttons = document.querySelectorAll('.button');
+let display = document.getElementById('result');
 
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
-    console.log(`Button ${button.value} is clicked`);
-    appendNumber(button.value);
+    let val = button.value;
+    
+    if (operatorButtons.includes(val)) {
+      handleOperatorClick(val); 
+    } else if (val === "=") {
+      display.value = null;
+      updateDisplay(currentResult);
+    } else {
+      handleNumberClick(val);    
+    }
   })
 })
