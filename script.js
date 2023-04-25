@@ -42,22 +42,34 @@ function updateDisplay(number) {
 }
 
 function handleNumberClick(number) {
+
   currentNumber = !currentNumber ? number : currentNumber += number;
+  console.log(`Current number = ${currentNumber}`)
+
   updateDisplay(number);
-  if (!currentOperator) {
+}
+
+function handleOperatorClick(operator) {
+
+  // calculate result of the previous two numbers 
+  if (currentResult === null) {
     currentResult = parseFloat(currentNumber);
   } else {
     currentResult = operate(currentOperator, currentResult, parseFloat(currentNumber));
   }
-}
+  console.log(`Current result is ${currentResult}`);
 
-function handleOperatorClick(operator) {
+  // set new operator 
   currentOperator = operator;
   updateDisplay(currentOperator);
+  console.log(`Current operator is ${currentOperator}`)
+
+  // reset currentNumber
   currentNumber = null;
-  console.log(`Operator ${currentOperator} is clicked`)
+  
 }
  
+
 // Calculator 
 const operatorButtons = ["+", "-", "*", "/"];
 let currentNumber = null;
@@ -74,8 +86,13 @@ buttons.forEach((button) => {
     if (operatorButtons.includes(val)) {
       handleOperatorClick(val); 
     } else if (val === "=") {
+      // clear display
       display.value = null;
+
+      // display current result 
+      currentResult = operate(currentOperator, currentResult, parseFloat(currentNumber));
       updateDisplay(currentResult);
+      console.log(`Current result is ${currentResult}`);
     } else {
       handleNumberClick(val);    
     }
