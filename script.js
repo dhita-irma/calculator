@@ -43,10 +43,12 @@ function updateDisplay(number) {
 
 function handleNumberClick(number) {
 
+  display.value = null;
+  
   currentNumber = !currentNumber ? number : currentNumber += number;
   console.log(`Current number = ${currentNumber}`)
 
-  updateDisplay(number);
+  updateDisplay(currentNumber);
 }
 
 function handleOperatorClick(operator) {
@@ -59,9 +61,12 @@ function handleOperatorClick(operator) {
   }
   console.log(`Current result is ${currentResult}`);
 
+  // display current result 
+  display.value = null;
+  updateDisplay(currentResult);
+
   // set new operator 
   currentOperator = operator;
-  updateDisplay(currentOperator);
   console.log(`Current operator is ${currentOperator}`)
 
   // reset currentNumber
