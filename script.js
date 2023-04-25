@@ -98,8 +98,13 @@ buttons.forEach((button) => {
       currentResult = operate(currentOperator, currentResult, parseFloat(currentNumber));
       updateDisplay(currentResult);
       console.log(`Current result is ${currentResult}`);
+    } else if (val === "C"){
+        currentNumber = null;
+        currentResult = null;
+        currentOperator = null;
+        display.value = null;
     } else {
-      handleNumberClick(val);    
+        handleNumberClick(val); 
     }
   })
 })
